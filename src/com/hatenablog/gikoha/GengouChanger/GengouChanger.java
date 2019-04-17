@@ -1,6 +1,6 @@
 /*
  * Created 2019/04/17
- * Copyright (C) 2019 E.Mawatari
+ * Copyright (C) 2019 gikoha
  *
  *         v1.0 initial     電カル上で動くようにJava1.6で記載
  *
