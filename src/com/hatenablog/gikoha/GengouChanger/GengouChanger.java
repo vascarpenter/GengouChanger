@@ -3,6 +3,7 @@
  * Copyright (C) 2019 gikoha
  *
  *         v1.0 initial     電カル上で動くようにJava1.6で記載
+ *          1.1             複数回"H"出現時のbug fix
  *
  * This file is part of GengouChanger
  *
@@ -23,22 +24,13 @@
 
 package com.hatenablog.gikoha.GengouChanger;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.StringTokenizer;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 public class GengouChanger extends JFrame
 {
@@ -233,11 +225,18 @@ public class GengouChanger extends JFrame
                     {
                         lastpos++;
                     }
-                    if(lastpos == pos)  break;     //  'H'の後が数字じゃない
+                    if (lastpos == pos)
+                    {
+                        //  'H'の後が数字じゃない
+                        tt += t.substring(0, pos);
+                        t = t.substring(pos);
+                        // 次へ
+                        continue;
+                    }
 
                     String ty = t.substring(pos,lastpos);
                     int year = Integer.parseInt(ty);
-                    if(year>9 && year<34)
+                    if (year >= 1 && year < 34)
                         year = 2019+year-31;
                     else
                     {
